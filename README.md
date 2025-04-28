@@ -1,28 +1,45 @@
 ![](https://img.shields.io/github/repo-size/yakinoki/ikkiuchishogi)
 
-# ikkiuchishogi
+# ikkiuchi-shogi
 
-### ikkiuchishogi_game.py
+「一騎打ち将棋（ikkiuchi shogi）」は、  
+**横移動→縦移動**の2ステップで盤上を移動する、シンプルながら戦略性のある将棋風ゲームです。  
+横方向の移動時に相手と重なった時点で勝敗が決します。  
+玉（King）はランダムに動きます。
 
-お互い縦横のどこにでも移動できる。まずは横方向に移動し、次に縦方向に移動する。横方向の移動に時点で重なっても詰みになる。
-玉はランダムで動く。
+---
 
-### ikkiuchishogi_game_play.py
+## 構成
 
-ゲームを実行する。
+### src/
 
+- **ikkiuchishogi_game.py**  
+  ゲームロジック本体。
+  - 横移動 → 縦移動のルールを実装。
+  - 横移動の時点で相手に重なれば勝ち。
+  - 玉はランダムに移動。
+
+- **ikkiuchishogi_game_play.py**  
+  ゲームを実行するエントリポイント。
+
+---
 
 ## old/
 
-### ikkiuchishogi_game_1.py
+過去バージョンのアーカイブです。
 
-お互い縦横のどこにでも移動できる。まずは横方向に移動し、次に縦方向に移動する。横方向の移動に時点で重なっても詰みになる。
+- **ikkiuchishogi_game_1.py**  
+  初期バージョン。基本ルール（横移動→縦移動）を実装。
 
+- **ikkiuchishogi_game_2.py**  
+  コードブラッシュアップ版（リファクタリングあり）。
 
-### ikkiuchishogi_game_2.py
+- **ikkiuchishogi_game_3.py**  
+  玉（King）のランダム自動移動を導入。
 
-コードをブラッシュアップしたもの。
+---
 
-### ikkiuchishogi_game_3.py
+## その他
 
-玉の動きをランダムで自動実行にしたもの。
+- `config.yml`：設定ファイル
+- `result_kifu/`：対局結果を保存するディレクトリ
