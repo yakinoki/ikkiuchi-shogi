@@ -3,6 +3,7 @@ import os
 import random
 import logging
 from logging import getLogger, StreamHandler, Formatter
+from datetime import datetime
 
 os.makedirs('./result_kifu', exist_ok=True)
 logging.basicConfig(level=logging.INFO)
@@ -19,6 +20,7 @@ class ShogiCls:
         with open('config.yml', 'r', encoding="utf-8") as yml:
             config = yaml.safe_load(yml)
         self.tebann = config['sennte']
+        self.moves = []  # ゲーム履歴を記録
 
     # 盤面を表示する。
     def shogi_display(self):
@@ -56,6 +58,7 @@ class ShogiCls:
                     self.shogi_bit[self.ou] = '・'
                     self.shogi_bit[x + 9 * int((self.ou) / 9)] = '王'
                     self.shogi_display()
+                    self.moves.append(f"先手: 横方向 {int(myXY)}")
                 for i in range(1, 80):
                     if self.shogi_bit[i] == '王':
                         self.ou = i
@@ -73,6 +76,7 @@ class ShogiCls:
                     self.shogi_display()
                     self.shogi_tebann_change()
                     self.shogi_yourturn()
+                    self.moves.append(f"先手: 縦方向 {int(myXY)}")
                     return int(myXY)
 
             else:
@@ -88,6 +92,7 @@ class ShogiCls:
                 self.shogi_bit[self.gyoku] = '・'
                 self.shogi_bit[x + 9 * int((self.gyoku) / 9)] = '玉'
                 self.shogi_display()
+                self.moves.append(f"後手: 横方向 {x}")
                 for i in range(1, 80):
                     if self.shogi_bit[i] == '玉':
                         self.gyoku = i
@@ -101,6 +106,7 @@ class ShogiCls:
                 self.shogi_display()
                 self.shogi_tebann_change()
                 self.shogi_yourturn()
+                self.moves.append(f"後手: 縦方向 {x}")
 
     # 対局終了かどうか判定する。
     def shogi_checkendofgame(self):
@@ -112,6 +118,8 @@ class ShogiCls:
         else:
             if X != 1:
                 print("対局終了です。後手の勝ちです。")
+                self.result = "後手の勝ち"
             else:
                 print("対局終了です。先手の勝ちです。")
+                self.result = "先手の勝ち"
             return 1
